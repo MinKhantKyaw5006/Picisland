@@ -205,9 +205,11 @@ const Home = () => {
         .catch((error) => {
           console.error('Error fetching user data from Sanity:', error);
         });
+    } else {
+      console.error('User info is null or undefined');
     }
-  }, [userInfo.uid]);
-
+  }, [userInfo]);
+  
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);
   }, []);
