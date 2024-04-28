@@ -216,13 +216,6 @@ const Home = () => {
 
   const { logOut } = useAuth();
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div>
