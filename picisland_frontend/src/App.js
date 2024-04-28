@@ -2,14 +2,20 @@
 
 // App.jsx
 // App.js
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './container/Home';
 import Account from './components/Account';
 import { AuthContextProvider } from './context/AuthContext';
+import { FetchUser } from './utils/FetchUser';
 
 const App = () => {
+  const navigate = useNavigate();
+  useEffect (()=>{
+    const user =FetchUser();  
+    if(!user) navigate('/login');
+  },[])
   return (
     <div>
       <AuthContextProvider>
