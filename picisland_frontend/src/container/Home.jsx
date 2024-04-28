@@ -76,13 +76,14 @@ import logo from '../assets/logo.png';
 import { userQuery } from '../utils/data';
 import { useAuth } from '../context/AuthContext';
 import Pins from './Pins';
+import { FetchUser } from '../utils/FetchUser';
 
 const Home = () => {
   //console.log('Home component rendered'); // Add this line to check if the component is rendered twice
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState(null);
   const scrollRef = useRef(null);
-  const userInfo = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+  const userInfo = FetchUser();
   
 
   // Get user info from Sanity
@@ -94,7 +95,7 @@ const Home = () => {
         .then((data) => {
           if (data && data.length > 0) {
             setUser(data[0]);
-            console.log('User data from Sanity:', data[0]); // Log user data to the console
+            //console.log('User data from Sanity:', data[0]); // Log user data to the console
           } else {
             console.error('User data from Sanity is empty or null');
           }
@@ -154,16 +155,14 @@ const Home = () => {
           )}
         </div>
   
-        <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
+        <div className='pb-8 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
           <Routes>
             <Route path='/user-profile/:userId' element={<UserProfile/>}/>
             <Route path='/*' element={<Pins user={user && user}/>}/>
           </Routes>
         </div>
       </div>
-      <div>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+
     </div>
   );
 }

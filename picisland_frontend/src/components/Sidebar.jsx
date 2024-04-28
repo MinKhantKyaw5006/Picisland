@@ -3,16 +3,12 @@ import { NavLink, Link } from 'react-router-dom';
 import {RiHomeFill} from 'react-icons/ri';
 import {IoIoArrowForward} from 'react-icons/io';
 import logo from '../assets/logo.png';
+import { Categories } from '../utils/data';
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 easy-in-out capitalize';
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 easy-in-out capitalize';
-const Categories =[
-  { name: 'Animals'},
-  { name: 'Wallpapers'},
-  { name: 'Photography'},
-  { name: 'Gaming'},
-  { name: 'Coding'},
-  { name: 'Others'},]
+
+  
 const Sidebar = ({user, closeToggle}) => {
     const handleCloseSideBar = ()=>{
         if(closeToggle) closeToggle(false);
@@ -34,13 +30,19 @@ const Sidebar = ({user, closeToggle}) => {
           {Categories.slice(0,Categories.length-1).map((category)=>(
             <NavLink to={`/category/${category.name}`} className={({isActive})=> isActive ? isActiveStyle : isNotActiveStyle} onClick={handleCloseSideBar}
             key ={category.name}>
+              <img src={category.image} className='w-8 h-8 rounded-full shadow-sm' alt='category'/>
               {category.name}
 
             </NavLink>
           ))}
         </div>
-
       </div>
+      {user && (
+        <Link to={`user-profile/${user._id}`} className='flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3' onClick={handleCloseSideBar}>
+          <img src={user.image} className='w-10 h-10 rounded-full' alt='user-profile' />
+          <p>{user.username}</p>
+        </Link>
+      )}
     </div>
   )
 }
