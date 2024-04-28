@@ -260,9 +260,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+  
     </div>
   );
 };
